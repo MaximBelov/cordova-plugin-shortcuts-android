@@ -42,6 +42,24 @@ The work that went into creating this plug-in was inspired by the existing plugi
 
 ## How to use it
 
+### Setting Static Shortcuts
+
+1. Copy `resources` to project's root
+
+```xml
+<platform name="android">
+    <resource-file src="resources/android/shortcuts/xml/shortcuts.xml" target="app/src/main/res/xml/shortcuts.xml" />
+    <resource-file src="resources/android/shortcuts/values/shortcuts.xml" target="app/src/main/res/values/shortcuts.xml" />
+    <resource-file src="resources/android/shortcuts/drawable/static_shortcut.xml" target="app/src/main/res/drawable/static_shortcut.xml" />
+    <edit-config file="app/src/main/AndroidManifest.xml" mode="add" target="/manifest/application/activity" xmlns:android="http://schemas.android.com/apk/res/android">
+        <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
+    </edit-config>
+</platform>
+
+```
+
+2. `resources/android/shortcuts/xml/shortcuts.xml` replace `{{BUNDLE_ID}}` with your application id
+
 ### Checking if Dynamic Shortcuts are supported
 
 Dynamic shortcuts require SDK 25 or later. Use `supportsDynamic` to check whether the current device meets those requirements.
