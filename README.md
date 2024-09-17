@@ -182,6 +182,33 @@ Call with an empty callback to de-register the existing callback.
 window.plugins.Shortcuts.onNewIntent(); // De-register existing callback
 ```
 
+### How to use with Ionic 
+Will be available after
+https://github.com/danielsogl/awesome-cordova-plugins/pull/4831
+
+```bash
+
+npm i @awesome-cordova-plugins/shortcuts-android
+
+```
+
+```ts
+import { inject, Injectable } from '@angular/core';
+import { Shortcut, ShortcutsAndroid, Intent } from '@awesome-cordova-plugins/shortcuts-android/ngx';
+import { filter, from, merge } from 'rxjs';
+
+@Injectable()
+export class ShortCutsService{
+  private shortcutsAndroid = inject(ShortcutsAndroid);
+  onNewIntent() {
+    return merge(from(this.shortcutsAndroid.getIntent()), this.shortcutsAndroid.onNewIntent()).pipe(
+      filter((intent: Intent) => intent?.extras?.shortcut)
+    );
+  }
+}
+
+```
+
 ## CHANGES
 
 * v0.1.2 BREAKING: Do not append package name to keys under `Intent.Extras` dictionary
