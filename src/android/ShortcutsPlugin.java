@@ -42,6 +42,16 @@ public class ShortcutsPlugin extends CordovaPlugin {
     private static final String ACTION_ON_NEW_INTENT = "onNewIntent";
 
     private CallbackContext onNewIntentCallbackContext = null;
+    private Intent launchIntent;
+
+    @Override
+    protected void pluginInitialize() {
+        // Capture the launch intent immediately. Other plugins (e.g. phonegap-nfc)
+        // call setIntent(new Intent()) during their init, which wipes the activity's
+        // intent before getIntent can read it. Saving it here — before any JS runs —
+        // guarantees we have the original cold-start intent with action and data intact.
+        launchIntent = cordova.getActivity().getIntent();
+    }
 
     @Override
     public boolean execute(
@@ -123,7 +133,8 @@ public class ShortcutsPlugin extends CordovaPlugin {
     }
 
     private void getIntent(CallbackContext callbackContext) throws JSONException  {
-        Intent intent = this.cordova.getActivity().getIntent();
+        Intent intent = (launchIntent != null) ? launchIntent : this.cordova.getActivity().getIntent();
+        launchIntent = null; // consume so it is not re-processed
         PluginResult result = new PluginResult(PluginResult.Status.OK, buildIntent(intent));
         callbackContext.sendPluginResult(result);
     }
