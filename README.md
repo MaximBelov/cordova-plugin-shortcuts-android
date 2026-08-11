@@ -182,9 +182,9 @@ Call with an empty callback to de-register the existing callback.
 window.plugins.Shortcuts.onNewIntent(); // De-register existing callback
 ```
 
-### How to use with Ionic 
-Will be available after
-https://github.com/danielsogl/awesome-cordova-plugins/pull/4831
+### How to use with Ionic
+
+An Ionic Native wrapper is available in [`@awesome-cordova-plugins`](https://github.com/danielsogl/awesome-cordova-plugins).
 
 ```bash
 
