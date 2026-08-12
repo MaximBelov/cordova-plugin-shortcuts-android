@@ -1,6 +1,6 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-            android:shortcutId="compose"
+            android:shortcutId="static_shortcut"
             android:enabled="true"
             android:icon="@drawable/static_shortcut"
             android:shortcutShortLabel="@string/static_shortcut"
@@ -12,6 +12,5 @@
             android:targetClass="{{BUNDLE_ID}}.MainActivity" >
             <extra android:name="shortcut" android:value="static_shortcut"/>
         </intent>
-        <categories android:name="android.intent.category.LAUNCHER" />
     </shortcut>
 </shortcuts>
